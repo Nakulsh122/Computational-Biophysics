@@ -95,55 +95,87 @@ def read_fasta_sequences(fasta_file):
 from Bio import Align
 from Bio.Align import substitution_matrices
 
-def compare_sequences(pdb_sequences, fasta_sequences):
-    """Compare PDB sequences with FASTA sequences efficiently, calculating alignment, identity, and similarity."""
+from Bio import Align
+from Bio.Seq import Seq
+
+def align_sequence_clusters(fasta_clusters, pdb_clusters):
+    """
+    Aligns clusters of FASTA sequences to clusters of PDB sequences using both
+    global (Needleman-Wunsch) and local (Smith-Waterman) alignment.
+
+    Parameters:
+    fasta_clusters (dict): Dictionary of FASTA sequences {cluster_id: sequence}
+    pdb_clusters (dict): Dictionary of PDB sequences {cluster_id: sequence}
+
+    Returns:
+    dict: A dictionary with alignment results, including scores and alignments.
+    """
+
+    # Initialize aligners
+    global_aligner = Align.PairwiseAligner()
+    global_aligner.mode = 'global'  # Needleman-Wunsch
+
+    local_aligner = Align.PairwiseAligner()
+    local_aligner.mode = 'local'  # Smith-Waterman
+
+    alignment_results = {}
+
+    # Iterate through each FASTA sequence cluster
+    for fasta_id, fasta_seq in fasta_clusters.items():
+        fasta_seq_obj = Seq(fasta_seq)
+        alignment_results[fasta_id] = {}
+
+        # Compare with each PDB sequence cluster
+        for pdb_id, pdb_seq in pdb_clusters.items():
+            pdb_seq_obj = Seq(pdb_seq)
+
+            # Perform global and local alignments
+            global_alignment = global_aligner.align(fasta_seq_obj, pdb_seq_obj)[0]
+            local_alignment = local_aligner.align(fasta_seq_obj, pdb_seq_obj)[0]
+
+            # Store results
+            alignment_results[fasta_id][pdb_id] = {
+                "global_alignment": str(global_alignment),
+                "global_score": global_alignment.score,
+                "local_alignment": str(local_alignment),
+                "local_score": local_alignment.score
+            }
+
+    return alignment_results
+
+# Blosum Score Calculations 
+blosum_matrices = {
+    "BLOSUM62": substitution_matrices.load("BLOSUM62"),
+    "BLOSUM80": substitution_matrices.load("BLOSUM80"),
+    "BLOSUM45": substitution_matrices.load("BLOSUM45"),
+}
+
+def calculate_blosum_scores(fasta_dict, pdb_dict):
+    """
+    Compute BLOSUM45, BLOSUM62, and BLOSUM80 scores for each pair between FASTA and PDB clusters.
     
-    aligner = Align.PairwiseAligner()
-    aligner.mode = "global"  # Global alignment
-    matrix = substitution_matrices.load("BLOSUM62")  # Load BLOSUM62 substitution matrix
+    Args:
+        fasta_dict (dict): Dictionary of FASTA sequences with labels.
+        pdb_dict (dict): Dictionary of PDB sequences with labels.
 
-    for pdb_chain, pdb_seq in pdb_sequences.items():
-        print(f"\n🔹 Chain {pdb_chain}:")
+    Returns:
+        dict: Nested dictionary with BLOSUM scores for each matrix and sequence pair.
+    """
+    scores = {matrix_name: {} for matrix_name in blosum_matrices}
 
-        best_match = None
-        best_score = float("-inf")
-        best_alignment = None
-        best_identity = 0
-        best_similarity = float("-inf")
+    for fasta_label, fasta_seq in fasta_dict.items():
+        for pdb_label, pdb_seq in pdb_dict.items():
+            pair_key = (fasta_label, pdb_label)  # Maintain original labels
+            min_length = min(len(fasta_seq), len(pdb_seq))
 
-        for fasta_id, fasta_seq in fasta_sequences.items():
-            alignments = aligner.align(pdb_seq, fasta_seq)  # Compute alignments
-            
-            if not alignments:
-                continue
-
-            alignment = alignments[0]  # Take the best alignment
-            score = alignment.score
-            
-            # Sequence Identity Calculation
-            identity = sum(a == b for a, b in zip(pdb_seq, fasta_seq)) / max(len(pdb_seq), len(fasta_seq)) * 100
-            
-            # Sequence Similarity Calculation using BLOSUM62
-            similarity = sum(matrix[a][b] for a, b in zip(pdb_seq, fasta_seq) if a in matrix and b in matrix[a])
-
-            # Track best match
-            if score > best_score:
-                best_score = score
-                best_match = fasta_id
-                best_alignment = alignment
-                best_identity = identity
-                best_similarity = similarity
-
-        # Print results for the best match
-        if best_match:
-            print(f"  ✅ Best match: {best_match} (Score: {best_score:.2f})")
-            print(f"  🔹 Sequence Identity: {best_identity:.2f}%")
-            print(f"  🔹 Sequence Similarity (BLOSUM62): {best_similarity:.2f}")
-            print(best_alignment)  # Print best alignment
-        else:
-            print("  ❌ No match found.")
-
-
+            for matrix_name, blosum_matrix in blosum_matrices.items():
+                score = sum(
+                    blosum_matrix.get((fasta_seq[i], pdb_seq[i]), -4)  # Default mismatch penalty
+                    for i in range(min_length)
+                )
+                scores[matrix_name][pair_key] = score
+    
+    return scores
 
 # main function 
 if __name__ == "__main__":
@@ -157,7 +189,28 @@ if __name__ == "__main__":
     PDB_F = open(f"{pdb_id}.pdb","r")
     pdb_sequnces = extract_pdb_sequences(PDB_F)
     fasta_seq = read_fasta_sequences(FASTA)
-    compare_sequences(pdb_sequnces,fasta_seq)
+    print(pdb_sequnces ,"\n" ,fasta_seq)
+    results = align_sequence_clusters(fasta_clusters=fasta_seq,pdb_clusters=pdb_sequnces)
+    # compare_sequences(pdb_sequnces,fasta_seq)
     # print(pdb_sequnces)
     # print(fasta_seq)
+    for fasta_id, pdb_results in results.items():
+        for pdb_id, data in pdb_results.items():
+            print(f"\n🔹 Alignment between FASTA {fasta_id} and PDB {pdb_id} 🔹")
+            print("\n✅ GLOBAL ALIGNMENT (Needleman-Wunsch)")
+            print(f"Score: {data['global_score']}")
+            print(data["global_alignment"])
+            print("-" * 50)
+
+            print("\n✅ LOCAL ALIGNMENT (Smith-Waterman)")
+            print(f"Score: {data['local_score']}")
+            print(data["local_alignment"])
+            print("=" * 50)
+
+    blosum_scores = calculate_blosum_scores(pdb_dict=pdb_sequnces,fasta_dict=fasta_seq)
+    
+    for matrix, results in blosum_scores.items():
+        print(f"\n{matrix} Scores:")
+        for key, score in results.items():
+            print(f"{key}: {score}")
     print("Run Successful")
