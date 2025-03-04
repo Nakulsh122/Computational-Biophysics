@@ -5,6 +5,7 @@
 import sys
 import requests as req
 from Bio import PDB ,SeqIO ,Align
+from Bio.Align import substitution_matrices
 from Bio.Seq import Seq
 # from Bio.PDB.Polypeptide import th
 import subprocess as sub
@@ -82,7 +83,8 @@ AA_MAP = {
     "SER": "S", "THR": "T", "TRP": "W", "TYR": "Y", "VAL": "V"
 }
 
-def extract_pdb_sequences(pdb_file):
+
+def extract_pdb_sequences(pdb_file, pdb_id):
     parser = PDB.PDBParser(QUIET=True)
     structure = parser.get_structure("protein", pdb_file)
     
@@ -102,7 +104,7 @@ def extract_pdb_sequences(pdb_file):
                 res_name = res.get_resname().strip()
                 seq.append(AA_MAP.get(res_name, "X"))  # Convert to one-letter code
                 residue_positions.append(res.id[1])   # Store residue sequence number
-
+        
         chains[chain_id] = "".join(seq)
 
         # Detect chain breaks
@@ -115,7 +117,16 @@ def extract_pdb_sequences(pdb_file):
             chain_breaks[chain_id] = breaks  # Store breaks only if found
 
     num_chains = len(unique_chains)
-    return chains, num_chains, chain_breaks  # Return sequences, count, and breaks
+
+    # Print chain break results in required format
+    if chain_breaks:
+        for chain_id, breaks in chain_breaks.items():
+            print(f"Chain Break Detected in {pdb_id}|Chains: {chain_id}, Residue positions {breaks}")
+    else:
+        print(f"No Chain Break Detected in {pdb_id}")
+
+    return chains, num_chains, chain_breaks
+  # Return sequences, count, and breaks
 
 
 
@@ -128,24 +139,8 @@ def read_fasta_sequences(fasta_file):
     return fasta_sequences
 
 #part 2.3 : compare the sequnces 
-from Bio import Align
-from Bio.Align import substitution_matrices
-
-from Bio import Align
-from Bio.Seq import Seq
 
 def align_sequence_clusters(fasta_clusters, pdb_clusters):
-    """
-    Aligns clusters of FASTA sequences to clusters of PDB sequences using both
-    global (Needleman-Wunsch) and local (Smith-Waterman) alignment.
-
-    Parameters:
-    fasta_clusters (dict): Dictionary of FASTA sequences {cluster_id: sequence}
-    pdb_clusters (dict): Dictionary of PDB sequences {cluster_id: sequence}
-
-    Returns:
-    dict: A dictionary with alignment results, including scores and alignments.
-    """
 
     # Initialize aligners
     global_aligner = Align.PairwiseAligner()
@@ -204,41 +199,6 @@ def calculate_blosum_scores(fasta_dict, pdb_dict):
     
     return scores
 
-# def detect_chain_breaks(pdb_clusters, fasta_clusters):
-#     """
-#     Detects chain breaks by comparing PDB sequences to FASTA sequences.
-#     If a discontinuity (chain break) is found, it reports the chain ID and residue positions.
-#     """
-
-#     chain_breaks = {}
-
-#     for chain_id, pdb_seq in pdb_clusters.items():
-#         if chain_id in fasta_clusters:
-#             fasta_seq = fasta_clusters[chain_id]
-
-#             break_positions = []
-#             min_length = min(len(pdb_seq), len(fasta_seq))
-
-#             # Identify mismatches (chain breaks)
-#             for i in range(min_length):
-#                 if pdb_seq[i] != fasta_seq[i]:  # Residue mismatch
-#                     break_positions.append(i + 1)  # 1-based index
-
-#             # Store results if chain breaks exist
-#             if break_positions:
-#                 chain_breaks[chain_id] = break_positions
-
-#     # Print results
-#     if chain_breaks:
-#         for chain_id, positions in chain_breaks.items():
-#             print(f"Chain Break Detected in {chain_id}: Residue positions {positions}")
-#     else:
-#         print("No chain breaks detected.")
-
-#     return chain_breaks
-
-
-
 # main function 
 if __name__ == "__main__":
     pdb_id = input("Enter the PDB id for the file :").strip().upper()
@@ -249,7 +209,7 @@ if __name__ == "__main__":
     download_fasta(fasta_id)
     FASTA = open(f"{fasta_id}.fasta","r")
     PDB_F = open(f"{pdb_id}.pdb","r")
-    pdb_sequnces,num_chains,chain_breaks = extract_pdb_sequences(PDB_F)
+    pdb_sequnces,num_chains,chain_breaks = extract_pdb_sequences(PDB_F,pdb_id)
     fasta_seq = read_fasta_sequences(FASTA)
     print(pdb_sequnces ,"\n" ,fasta_seq)
     print(f"The number of chains in the pdb sequnce {pdb_id} are :{num_chains}")
