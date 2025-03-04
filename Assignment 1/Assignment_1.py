@@ -2,14 +2,15 @@
 # Computational Biophysics
 # Assigmen
 
-import os 
+import sys
 import requests as req
 from Bio import PDB ,SeqIO ,Align
 from Bio.Seq import Seq
 # from Bio.PDB.Polypeptide import th
 import subprocess as sub
 
-
+output_file = open("report.txt","w+")
+sys.stdout = output_file
 AA_MOLECULAR_WEIGHTS = {
     'A': 89.094,    # Alanine
     'R': 174.203,   # Arginine
@@ -75,14 +76,21 @@ def download_fasta(file_id):
 def extract_pdb_sequences(pdb_file):
     parser = PDB.PDBParser(QUIET=True)
     structure = parser.get_structure("protein", pdb_file)
+    
     chains = {}
-
+    unique_chains = set()  # To store unique chain IDs
+    
     for chain in structure.get_chains():
         chain_id = chain.get_id()
+        unique_chains.add(chain_id)  # Add chain ID to the set
+        
         seq = "".join(AA_MAP.get(res.get_resname().strip(), "X") for res in chain.get_residues() if res.id[0] == " ")
         chains[chain_id] = seq
+    
+    num_chains = len(unique_chains)  # Count of unique chains
+    return chains, num_chains
 
-    return chains
+
 # part 2.2 : Extract the FASTA sequnces 
 def read_fasta_sequences(fasta_file):
     """Read sequences from a FASTA file."""
@@ -151,16 +159,7 @@ blosum_matrices = {
 }
 
 def calculate_blosum_scores(fasta_dict, pdb_dict):
-    """
-    Compute BLOSUM45, BLOSUM62, and BLOSUM80 scores for each pair between FASTA and PDB clusters.
     
-    Args:
-        fasta_dict (dict): Dictionary of FASTA sequences with labels.
-        pdb_dict (dict): Dictionary of PDB sequences with labels.
-
-    Returns:
-        dict: Nested dictionary with BLOSUM scores for each matrix and sequence pair.
-    """
     scores = {matrix_name: {} for matrix_name in blosum_matrices}
 
     for fasta_label, fasta_seq in fasta_dict.items():
@@ -177,6 +176,41 @@ def calculate_blosum_scores(fasta_dict, pdb_dict):
     
     return scores
 
+def detect_chain_breaks(pdb_clusters, fasta_clusters):
+    """
+    Detects chain breaks by comparing PDB sequences to FASTA sequences.
+    If a discontinuity (chain break) is found, it reports the chain ID and residue positions.
+    """
+
+    chain_breaks = {}
+
+    for chain_id, pdb_seq in pdb_clusters.items():
+        if chain_id in fasta_clusters:
+            fasta_seq = fasta_clusters[chain_id]
+
+            break_positions = []
+            min_length = min(len(pdb_seq), len(fasta_seq))
+
+            # Identify mismatches (chain breaks)
+            for i in range(min_length):
+                if pdb_seq[i] != fasta_seq[i]:  # Residue mismatch
+                    break_positions.append(i + 1)  # 1-based index
+
+            # Store results if chain breaks exist
+            if break_positions:
+                chain_breaks[chain_id] = break_positions
+
+    # Print results
+    if chain_breaks:
+        for chain_id, positions in chain_breaks.items():
+            print(f"Chain Break Detected in {chain_id}: Residue positions {positions}")
+    else:
+        print("No chain breaks detected.")
+
+    return chain_breaks
+
+
+
 # main function 
 if __name__ == "__main__":
     pdb_id = input("Enter the PDB id for the file :").strip().upper()
@@ -187,22 +221,21 @@ if __name__ == "__main__":
     download_fasta(fasta_id)
     FASTA = open(f"{fasta_id}.fasta","r")
     PDB_F = open(f"{pdb_id}.pdb","r")
-    pdb_sequnces = extract_pdb_sequences(PDB_F)
+    pdb_sequnces,num_chains = extract_pdb_sequences(PDB_F)
     fasta_seq = read_fasta_sequences(FASTA)
     print(pdb_sequnces ,"\n" ,fasta_seq)
+    print(f"The number of chains in the pdb sequnce {pdb_id} are :{num_chains}")
     results = align_sequence_clusters(fasta_clusters=fasta_seq,pdb_clusters=pdb_sequnces)
-    # compare_sequences(pdb_sequnces,fasta_seq)
-    # print(pdb_sequnces)
-    # print(fasta_seq)
+
     for fasta_id, pdb_results in results.items():
         for pdb_id, data in pdb_results.items():
-            print(f"\n🔹 Alignment between FASTA {fasta_id} and PDB {pdb_id} 🔹")
-            print("\n✅ GLOBAL ALIGNMENT (Needleman-Wunsch)")
+            print(f"\n Alignment between FASTA {fasta_id} and PDB {pdb_id}")
+            print("\n GLOBAL ALIGNMENT (Needleman-Wunsch)")
             print(f"Score: {data['global_score']}")
             print(data["global_alignment"])
             print("-" * 50)
 
-            print("\n✅ LOCAL ALIGNMENT (Smith-Waterman)")
+            print("\n LOCAL ALIGNMENT (Smith-Waterman)")
             print(f"Score: {data['local_score']}")
             print(data["local_alignment"])
             print("=" * 50)
@@ -213,4 +246,8 @@ if __name__ == "__main__":
         print(f"\n{matrix} Scores:")
         for key, score in results.items():
             print(f"{key}: {score}")
+    detect_chain_breaks(pdb_clusters=pdb_sequnces,fasta_clusters=fasta_seq)
     print("Run Successful")
+    sys.stdout = sys.__stdout__
+    output_file.close()
+    print("report is saved ")
