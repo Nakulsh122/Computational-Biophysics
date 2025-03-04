@@ -73,22 +73,50 @@ def download_fasta(file_id):
         print("Error locating the file.Unable to download")
         print(response)
 # part 2.1 : Extract protein sequence from the files .
+from Bio import PDB
+
+AA_MAP = {
+    "ALA": "A", "ARG": "R", "ASN": "N", "ASP": "D", "CYS": "C",
+    "GLN": "Q", "GLU": "E", "GLY": "G", "HIS": "H", "ILE": "I",
+    "LEU": "L", "LYS": "K", "MET": "M", "PHE": "F", "PRO": "P",
+    "SER": "S", "THR": "T", "TRP": "W", "TYR": "Y", "VAL": "V"
+}
+
 def extract_pdb_sequences(pdb_file):
     parser = PDB.PDBParser(QUIET=True)
     structure = parser.get_structure("protein", pdb_file)
     
     chains = {}
-    unique_chains = set()  # To store unique chain IDs
-    
+    chain_breaks = {}
+    unique_chains = set()
+
     for chain in structure.get_chains():
         chain_id = chain.get_id()
-        unique_chains.add(chain_id)  # Add chain ID to the set
+        unique_chains.add(chain_id)
+
+        seq = []
+        residue_positions = []
         
-        seq = "".join(AA_MAP.get(res.get_resname().strip(), "X") for res in chain.get_residues() if res.id[0] == " ")
-        chains[chain_id] = seq
-    
-    num_chains = len(unique_chains)  # Count of unique chains
-    return chains, num_chains
+        for res in chain.get_residues():
+            if res.id[0] == " ":  # Ignore heteroatoms and water
+                res_name = res.get_resname().strip()
+                seq.append(AA_MAP.get(res_name, "X"))  # Convert to one-letter code
+                residue_positions.append(res.id[1])   # Store residue sequence number
+
+        chains[chain_id] = "".join(seq)
+
+        # Detect chain breaks
+        breaks = []
+        for i in range(1, len(residue_positions)):
+            if residue_positions[i] != residue_positions[i - 1] + 1:
+                breaks.append(residue_positions[i - 1])  # Last residue before the break
+        
+        if breaks:
+            chain_breaks[chain_id] = breaks  # Store breaks only if found
+
+    num_chains = len(unique_chains)
+    return chains, num_chains, chain_breaks  # Return sequences, count, and breaks
+
 
 
 # part 2.2 : Extract the FASTA sequnces 
@@ -176,38 +204,38 @@ def calculate_blosum_scores(fasta_dict, pdb_dict):
     
     return scores
 
-def detect_chain_breaks(pdb_clusters, fasta_clusters):
-    """
-    Detects chain breaks by comparing PDB sequences to FASTA sequences.
-    If a discontinuity (chain break) is found, it reports the chain ID and residue positions.
-    """
+# def detect_chain_breaks(pdb_clusters, fasta_clusters):
+#     """
+#     Detects chain breaks by comparing PDB sequences to FASTA sequences.
+#     If a discontinuity (chain break) is found, it reports the chain ID and residue positions.
+#     """
 
-    chain_breaks = {}
+#     chain_breaks = {}
 
-    for chain_id, pdb_seq in pdb_clusters.items():
-        if chain_id in fasta_clusters:
-            fasta_seq = fasta_clusters[chain_id]
+#     for chain_id, pdb_seq in pdb_clusters.items():
+#         if chain_id in fasta_clusters:
+#             fasta_seq = fasta_clusters[chain_id]
 
-            break_positions = []
-            min_length = min(len(pdb_seq), len(fasta_seq))
+#             break_positions = []
+#             min_length = min(len(pdb_seq), len(fasta_seq))
 
-            # Identify mismatches (chain breaks)
-            for i in range(min_length):
-                if pdb_seq[i] != fasta_seq[i]:  # Residue mismatch
-                    break_positions.append(i + 1)  # 1-based index
+#             # Identify mismatches (chain breaks)
+#             for i in range(min_length):
+#                 if pdb_seq[i] != fasta_seq[i]:  # Residue mismatch
+#                     break_positions.append(i + 1)  # 1-based index
 
-            # Store results if chain breaks exist
-            if break_positions:
-                chain_breaks[chain_id] = break_positions
+#             # Store results if chain breaks exist
+#             if break_positions:
+#                 chain_breaks[chain_id] = break_positions
 
-    # Print results
-    if chain_breaks:
-        for chain_id, positions in chain_breaks.items():
-            print(f"Chain Break Detected in {chain_id}: Residue positions {positions}")
-    else:
-        print("No chain breaks detected.")
+#     # Print results
+#     if chain_breaks:
+#         for chain_id, positions in chain_breaks.items():
+#             print(f"Chain Break Detected in {chain_id}: Residue positions {positions}")
+#     else:
+#         print("No chain breaks detected.")
 
-    return chain_breaks
+#     return chain_breaks
 
 
 
@@ -221,7 +249,7 @@ if __name__ == "__main__":
     download_fasta(fasta_id)
     FASTA = open(f"{fasta_id}.fasta","r")
     PDB_F = open(f"{pdb_id}.pdb","r")
-    pdb_sequnces,num_chains = extract_pdb_sequences(PDB_F)
+    pdb_sequnces,num_chains,chain_breaks = extract_pdb_sequences(PDB_F)
     fasta_seq = read_fasta_sequences(FASTA)
     print(pdb_sequnces ,"\n" ,fasta_seq)
     print(f"The number of chains in the pdb sequnce {pdb_id} are :{num_chains}")
@@ -246,7 +274,7 @@ if __name__ == "__main__":
         print(f"\n{matrix} Scores:")
         for key, score in results.items():
             print(f"{key}: {score}")
-    detect_chain_breaks(pdb_clusters=pdb_sequnces,fasta_clusters=fasta_seq)
+    print(chain_breaks)
     print("Run Successful")
     sys.stdout = sys.__stdout__
     output_file.close()
