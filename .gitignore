@@ -1,4 +1,8 @@
 *.pdf
 *.fasta
 *.pdb
+*.asa
+*.log
+*.rsa
+
 report.txt

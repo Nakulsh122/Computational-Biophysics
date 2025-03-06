@@ -7,6 +7,9 @@ import requests as req
 from Bio import PDB ,SeqIO ,Align
 from Bio.Align import substitution_matrices
 from Bio.Seq import Seq
+from naccess import run_naccess
+
+
 # from Bio.PDB.Polypeptide import th
 import subprocess as sub
 
@@ -75,14 +78,6 @@ def download_fasta(file_id):
         print(response)
 # part 2.1 : Extract protein sequence from the files .
 from Bio import PDB
-
-AA_MAP = {
-    "ALA": "A", "ARG": "R", "ASN": "N", "ASP": "D", "CYS": "C",
-    "GLN": "Q", "GLU": "E", "GLY": "G", "HIS": "H", "ILE": "I",
-    "LEU": "L", "LYS": "K", "MET": "M", "PHE": "F", "PRO": "P",
-    "SER": "S", "THR": "T", "TRP": "W", "TYR": "Y", "VAL": "V"
-}
-
 
 def extract_pdb_sequences(pdb_file, pdb_id):
     parser = PDB.PDBParser(QUIET=True)
@@ -199,43 +194,141 @@ def calculate_blosum_scores(fasta_dict, pdb_dict):
     
     return scores
 
-# main function 
+def get_asa_values(pdb_filename):
+    
+    asa_filename = pdb_filename.replace(".pdb", ".asa")  # Corresponding .asa file
+    asa_values = {}
+
+    with open(asa_filename, "r") as f:
+        for line in f:
+            if line.startswith("ATOM"):  # Only process ATOM lines
+                chain_id = line[21]  # Chain ID is at column 22 (index 21 in Python)
+                asa_value = float(line[54:62].strip())  # ASA value at columns 55-62
+
+                # Accumulate ASA values per chain
+                if chain_id in asa_values:
+                    asa_values[chain_id] += asa_value
+                else:
+                    asa_values[chain_id] = asa_value
+
+    return asa_values  # Returns { "A": 1234.56, "B": 987.65 }
+
+def print_table(asa_values):
+    
+    # Define column headers
+    header = f"{'Chain':<10}{'ASA Value':<15}"
+    separator = "-" * len(header)
+
+    # Print table header
+    print(separator)
+    print(header)
+    print(separator)
+
+    # Print each chain and its ASA value
+    for chain, asa in asa_values.items():
+        print(f"{chain:<10}{asa:<15.2f}")
+
+    # Print footer separator
+    print(separator)
+
+# calculate molecular weight
+def calculate_molecular_weight(sequence):
+    weight = sum(AA_MOLECULAR_WEIGHTS.get(aa,0) for aa in sequence)
+    return weight
+
+import sys
+
+# Main function
 if __name__ == "__main__":
+    # User details
+    name = "Nakul Sharma"  # Replace with your actual name
+    roll_no = "22CS10046"  # Replace with your actual roll number
+    
+    # Report Header
+    report_header = f"""
+    ========================================================
+                     Assignment_1 Computational Biophysics
+    ========================================================
+    Name: {name}
+    Roll No: {roll_no}
+    ========================================================
+    """
+
+    print(report_header)
+    
     pdb_id = input("Enter the PDB id for the file :").strip().upper()
+    print(f"{pdb_id}")
     fasta_id = input("Enter The fasta id : ").strip().upper()
+    print(f"{fasta_id}")
+    
     if pdb_id.endswith(".pdb"):
         pdb_id = pdb_id[:-4]
+        
     download(pdb_id)
     download_fasta(fasta_id)
-    FASTA = open(f"{fasta_id}.fasta","r")
-    PDB_F = open(f"{pdb_id}.pdb","r")
-    pdb_sequnces,num_chains,chain_breaks = extract_pdb_sequences(PDB_F,pdb_id)
+    
+    FASTA = open(f"{fasta_id}.fasta", "r")
+    PDB_F = open(f"{pdb_id}.pdb", "r")
+    PDB_FILENAME = f"{pdb_id}.pdb"
+    
+    pdb_sequences, num_chains, chain_breaks = extract_pdb_sequences(PDB_F, pdb_id)
     fasta_seq = read_fasta_sequences(FASTA)
-    print(pdb_sequnces ,"\n" ,fasta_seq)
-    print(f"The number of chains in the pdb sequnce {pdb_id} are :{num_chains}")
-    results = align_sequence_clusters(fasta_clusters=fasta_seq,pdb_clusters=pdb_sequnces)
+
+    print("\nExtracted Sequences:")
+    print("------------------------------------------------")
+    print(f"PDB Sequences:\n{pdb_sequences}\n")
+    print(f"FASTA Sequences:\n{fasta_seq}")
+    print(f"\nThe number of chains in the PDB sequence {pdb_id} are: {num_chains}")
+    
+    # Alignment Results
+    results = align_sequence_clusters(fasta_clusters=fasta_seq, pdb_clusters=pdb_sequences)
 
     for fasta_id, pdb_results in results.items():
         for pdb_id, data in pdb_results.items():
-            print(f"\n Alignment between FASTA {fasta_id} and PDB {pdb_id}")
-            print("\n GLOBAL ALIGNMENT (Needleman-Wunsch)")
+            print(f"\nAlignment between FASTA {fasta_id} and PDB {pdb_id}")
+            print("------------------------------------------------")
+            print("\nGLOBAL ALIGNMENT (Needleman-Wunsch)")
             print(f"Score: {data['global_score']}")
             print(data["global_alignment"])
             print("-" * 50)
 
-            print("\n LOCAL ALIGNMENT (Smith-Waterman)")
+            print("\nLOCAL ALIGNMENT (Smith-Waterman)")
             print(f"Score: {data['local_score']}")
             print(data["local_alignment"])
             print("=" * 50)
 
-    blosum_scores = calculate_blosum_scores(pdb_dict=pdb_sequnces,fasta_dict=fasta_seq)
+    # BLOSUM Scores
+    blosum_scores = calculate_blosum_scores(pdb_dict=pdb_sequences, fasta_dict=fasta_seq)
     
     for matrix, results in blosum_scores.items():
         print(f"\n{matrix} Scores:")
+        print("------------------------------------------------")
         for key, score in results.items():
             print(f"{key}: {score}")
+    
+    print("\nDetected Chain Breaks:")
+    print("------------------------------------------------")
     print(chain_breaks)
-    print("Run Successful")
+
+    # Running NACCESS and getting ASA values
+    run_naccess(PDB_FILENAME)
+    asa_values = get_asa_values(PDB_FILENAME)
+
+    if not asa_values:
+        print("\nError running NACCESS. Check console output.")
+    else:
+        print("\nAccessible Surface Area (ASA) Values:")
+        print("------------------------------------------------")
+        print_table(asa_values)
+
+    print("\nCalculating Molecular Weights of the Chains")
+    print("------------------------------------------------")
+    for chain_id, seq in pdb_sequences.items():
+        print(f"Chain {chain_id}: Molecular Weight = {calculate_molecular_weight(seq):.2f} Da")
+    
+    print("\nRun Successful")
+    print("\n------------------------------------------------")
     sys.stdout = sys.__stdout__
     output_file.close()
-    print("report is saved ")
+    print("Report is saved successfully.")
+
