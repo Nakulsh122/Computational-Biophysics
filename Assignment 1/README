@@ -1,0 +1,52 @@
+README
+
+Overview
+
+This project processes PDB structures, extracts protein sequences, compares them with FASTA sequences, and calculates molecular weight and accessible surface area (ASA) using NACCESS.
+
+Requirements
+
+Biopython must be installed:
+
+pip install biopython
+
+NACCESS must be available on your system. If it does not run with naccess, provide the full path to the executable.
+
+The code must be run in WSL or Linux.
+
+How to Run
+
+Open a terminal and navigate to the project directory:
+
+cd /path/to/project
+
+Run the script:
+
+use make file like 
+make run : to male the python file 
+
+Enter the required PDB and FASTA IDs in the terminal only followed by an "ENTER" press 
+A text will appear when the whole report is generated 
+
+Important Notes
+
+NACCESS Limit: It can only process PDB structures with less than 20,000 atoms.
+
+Valid PDB Files: Use only the PDB indices listed in possible.txt.
+
+Custom NACCESS Path: If needed, update the script with the correct path to NACCESS.
+
+Output
+
+The program generates a report with sequence alignments, chain details, molecular weights, and ASA values.
+
+The report is saved in the project directory.
+
+Troubleshooting
+
+Ensure Biopython is installed.
+
+If NACCESS does not run, check the executable path.
+
+If errors occur with large PDB files, use only those in possible.txt.
+

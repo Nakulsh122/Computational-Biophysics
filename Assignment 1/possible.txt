@@ -1,0 +1,40 @@
+Hemoglobin (PDB ID: 1A3N):
+
+Description: Hemoglobin is the oxygen-transporting protein found in red blood cells.
+Atom Count: Approximately 5,574 atoms.
+Myoglobin (PDB ID: 1MBN):
+
+Description: Myoglobin is an oxygen-binding protein found in muscle tissues.
+Atom Count: Approximately 1,200 atoms.
+Lysozyme (PDB ID: 1LYZ):
+
+Description: Lysozyme is an enzyme that breaks down bacterial cell walls.
+Atom Count: Approximately 1,001 atoms.
+Insulin (PDB ID: 4INS):
+
+Description: Insulin is a hormone crucial for glucose metabolism regulation.
+Atom Count: Approximately 800 atoms.
+DNA Polymerase I (PDB ID: 1KFS):
+
+Description: DNA Polymerase I is an enzyme involved in DNA replication.
+Atom Count: Approximately 10,000 atoms.
+Green Fluorescent Protein (GFP) (PDB ID: 1EMA):
+
+Description: GFP is a protein that exhibits bright green fluorescence when exposed to light.
+Atom Count: Approximately 2,400 atoms.
+Cytochrome c (PDB ID: 1HRC):
+
+Description: Cytochrome c is a component of the electron transport chain in mitochondria.
+Atom Count: Approximately 1,600 atoms.
+Ribonuclease A (PDB ID: 7RSA):
+
+Description: Ribonuclease A is an enzyme that cleaves RNA.
+Atom Count: Approximately 1,700 atoms.
+Alcohol Dehydrogenase (PDB ID: 1YKF):
+
+Description: Alcohol Dehydrogenase is an enzyme that metabolizes alcohols.
+Atom Count: Approximately 9,000 atoms.
+Chymotrypsin (PDB ID: 2CHA):
+
+Description: Chymotrypsin is a digestive enzyme that breaks down proteins in the small intestine.
+Atom Count: Approximately 2,500 atoms.

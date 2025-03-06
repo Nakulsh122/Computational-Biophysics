@@ -1,0 +1,703 @@
+
+    ========================================================
+                     Assignment_1 Computational Biophysics
+    ========================================================
+    Name: Nakul Sharma
+    Roll No: 22CS10046
+    ========================================================
+    
+Enter the PDB id for the file :2CHA
+Enter The fasta id : 2CHA
+https://files.rcsb.org/download/2CHA.pdb
+Downloading PDB file 2CHA.pdb
+The file has been downloaded !!!
+Downloading Fasta file 2CHA.fasta
+2CHA.fasta successfully downloaded
+No Chain Break Detected in 2CHA
+
+Extracted Sequences:
+------------------------------------------------
+PDB Sequences:
+{'A': 'CGVPAIQPV', 'B': 'IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGSSSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTTCVTTGWGLTRY', 'C': 'ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWTLVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN', 'E': 'CGVPAIQPV', 'F': 'IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGSSSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTTCVTTGWGLTRY', 'G': 'ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWTLVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN'}
+
+FASTA Sequences:
+{'2CHA_1|Chains': 'CGVPAIQPVLSGL', '2CHA_2|Chains': 'IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGSSSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTTCVTTGWGLTRY', '2CHA_3|Chains': 'ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWTLVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN'}
+
+The number of chains in the PDB sequence 2CHA are: 6
+
+Alignment between FASTA 2CHA_1|Chains and PDB A
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 9.0
+target            0 CGVPAIQPVLSGL 13
+                  0 |||||||||---- 13
+query             0 CGVPAIQPV----  9
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 9.0
+target            0 CGVPAIQPV 9
+                  0 ||||||||| 9
+query             0 CGVPAIQPV 9
+
+==================================================
+
+Alignment between FASTA 2CHA_1|Chains and PDB B
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 11.0
+target            0 C---G---VP------------------------------A-------------------
+                  0 ----|---||------------------------------|-------------------
+query             0 -IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQG
+
+target            5 -----IQP------V--------L-----------S-----------------------G
+                 60 -----||-------|--------|-----------|-----------------------|
+query            59 SSSEKIQ-KLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAG
+
+target           12 ---------L---  13
+                120 ---------|--- 133
+query           118 TTCVTTGWGLTRY 131
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 11.0
+target            1 G---VP------------------------------A-----------------------
+                  0 |---||------------------------------|-----------------------
+query             3 GEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGSSSE
+
+target            5 -IQP------V--------L-----------S-----------------------G----
+                 60 -||-------|--------|-----------|-----------------------|----
+query            63 KIQ-KLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTTCV
+
+target           12 -----L  13
+                120 -----| 126
+query           122 TTGWGL 128
+
+==================================================
+
+Alignment between FASTA 2CHA_1|Chains and PDB C
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 10.0
+target            0 -------------------C----GVP-----A-IQ----------------P-V-----
+                  0 -------------------|----|-------|-|-----------------|-|-----
+query             0 ANTPDRLQQASLPLLSNTNCKKYWG--TKIKDAMI-CAGASGVSSCMGDSGGPLVCKKNG
+
+target            9 ---L----S-G-----------------L-----------  13
+                 60 ---|----|-|-----------------|----------- 100
+query            57 AWTLVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN  97
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 10.0
+target            0 C----GVP-----A-IQ----------------P-V--------L----S-G--------
+                  0 |----|-------|-|-----------------|-|--------|----|-|--------
+query            19 CKKYWG--TKIKDAMI-CAGASGVSSCMGDSGGPLVCKKNGAWTLVGIVSWGSSTCSTST
+
+target           12 ---------L 13
+                 60 ---------| 70
+query            76 PGVYARVTAL 86
+
+==================================================
+
+Alignment between FASTA 2CHA_1|Chains and PDB E
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 9.0
+target            0 CGVPAIQPVLSGL 13
+                  0 |||||||||---- 13
+query             0 CGVPAIQPV----  9
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 9.0
+target            0 CGVPAIQPV 9
+                  0 ||||||||| 9
+query             0 CGVPAIQPV 9
+
+==================================================
+
+Alignment between FASTA 2CHA_1|Chains and PDB F
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 11.0
+target            0 C---G---VP------------------------------A-------------------
+                  0 ----|---||------------------------------|-------------------
+query             0 -IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQG
+
+target            5 -----IQP------V--------L-----------S-----------------------G
+                 60 -----||-------|--------|-----------|-----------------------|
+query            59 SSSEKIQ-KLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAG
+
+target           12 ---------L---  13
+                120 ---------|--- 133
+query           118 TTCVTTGWGLTRY 131
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 11.0
+target            1 G---VP------------------------------A-----------------------
+                  0 |---||------------------------------|-----------------------
+query             3 GEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGSSSE
+
+target            5 -IQP------V--------L-----------S-----------------------G----
+                 60 -||-------|--------|-----------|-----------------------|----
+query            63 KIQ-KLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTTCV
+
+target           12 -----L  13
+                120 -----| 126
+query           122 TTGWGL 128
+
+==================================================
+
+Alignment between FASTA 2CHA_1|Chains and PDB G
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 10.0
+target            0 -------------------C----GVP-----A-IQ----------------P-V-----
+                  0 -------------------|----|-------|-|-----------------|-|-----
+query             0 ANTPDRLQQASLPLLSNTNCKKYWG--TKIKDAMI-CAGASGVSSCMGDSGGPLVCKKNG
+
+target            9 ---L----S-G-----------------L-----------  13
+                 60 ---|----|-|-----------------|----------- 100
+query            57 AWTLVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN  97
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 10.0
+target            0 C----GVP-----A-IQ----------------P-V--------L----S-G--------
+                  0 |----|-------|-|-----------------|-|--------|----|-|--------
+query            19 CKKYWG--TKIKDAMI-CAGASGVSSCMGDSGGPLVCKKNGAWTLVGIVSWGSSTCSTST
+
+target           12 ---------L 13
+                 60 ---------| 70
+query            76 PGVYARVTAL 86
+
+==================================================
+
+Alignment between FASTA 2CHA_2|Chains and PDB A
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 8.0
+target            0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVT-AAHCGVTTSDVVVAGEFDQG
+                  0 --------------------------||--------|---|-------------------
+query             0 --------------------------CG--------V--PA-------------------
+
+target           59 SSSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGT
+                 60 -----||------------------------------------------|----------
+query             5 -----IQ------------------------------------------P----------
+
+target          119 TCVTTGWGLTRY 131
+                120 --|--------- 132
+query             8 --V---------   9
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 8.0
+target           26 CGGSLINENWVVT-AAHCGVTTSDVVVAGEFDQGSSSEKIQKLKIAKVFKNSKYNSLTIN
+                  0 ||--------|---|------------------------||-------------------
+query             0 CG--------V--PA------------------------IQ-------------------
+
+target           85 NDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTTCV 122
+                 60 -----------------------|------------|  97
+query             7 -----------------------P------------V   9
+
+==================================================
+
+Alignment between FASTA 2CHA_2|Chains and PDB B
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 131.0
+target            0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGS
+                  0 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query             0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGS
+
+target           60 SSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTT
+                 60 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query            60 SSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTT
+
+target          120 CVTTGWGLTRY 131
+                120 ||||||||||| 131
+query           120 CVTTGWGLTRY 131
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 131.0
+target            0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGS
+                  0 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query             0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGS
+
+target           60 SSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTT
+                 60 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query            60 SSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTT
+
+target          120 CVTTGWGLTRY 131
+                120 ||||||||||| 131
+query           120 CVTTGWGLTRY 131
+
+==================================================
+
+Alignment between FASTA 2CHA_2|Chains and PDB C
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 37.0
+target            0 IVNGEEAV--PGSWPWQVS--LQDKTGFHFCGG--SLI----NE-N----WVV-T----A
+                  0 ------|---|----------||------------||-----|--|----|---|----|
+query             0 ------A-NTP--------DRLQ----------QASL-PLLSN-TNCKKYW--GTKIKDA
+
+target           40 AH--C-GVTT-SD-VVVA----GEFDQGSSSEKIQK---LKIAKVF-KNSKYNSL---TI
+                 60 ----|-|----|--|-------|--|--|----------|----|--|--|-|-----|-
+query            31 --MICAG---AS-GV---SSCMG--D--S-------GGPL----V-CK--K-N--GAWT-
+
+target           84 NNDITLLKL----STAA--SFSQTVSAVCLPSA-SDDFAAGTTC--V----TTGWG-L--
+                120 -----|-------|-----|-|-|----|--|--|------|----|----|-----|--
+query            60 -----L---VGIVS---WGS-S-T----C--S-TS------T--PGVYARVT----ALVN
+
+target          128 ----TRY---- 131
+                180 ----|------ 191
+query            88 WVQQT--LAAN  97
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 37.0
+target            6 AV--PGSWPWQVS--LQDKTGFHFCGG--SLI----NE-N----WVV-T----AAH--C-
+                  0 |---|----------||------------||-----|--|----|---|----|----|-
+query             0 A-NTP--------DRLQ----------QASL-PLLSN-TNCKKYW--GTKIKDA--MICA
+
+target           43 GVTT-SD-VVVA----GEFDQGSSSEKIQK---LKIAKVF-KNSKYNSL---TINNDITL
+                 60 |----|--|-------|--|--|----------|----|--|--|-|-----|------|
+query            35 G---AS-GV---SSCMG--D--S-------GGPL----V-CK--K-N--GAWT------L
+
+target           90 LKL----STAA--SFSQTVSAVCLPSA-SDDFAAGTTC--V----TTG----WG----L
+                120 -------|-----|-|-|----|--|--|------|----|----|------|-----|
+query            61 ---VGIVS---WGS-S-T----C--S-TS------T--PGVYARVT--ALVNW-VQQTL
+
+target          128
+                179
+query            94
+
+==================================================
+
+Alignment between FASTA 2CHA_2|Chains and PDB E
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 8.0
+target            0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVT-AAHCGVTTSDVVVAGEFDQG
+                  0 --------------------------||--------|---|-------------------
+query             0 --------------------------CG--------V--PA-------------------
+
+target           59 SSSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGT
+                 60 -----||------------------------------------------|----------
+query             5 -----IQ------------------------------------------P----------
+
+target          119 TCVTTGWGLTRY 131
+                120 --|--------- 132
+query             8 --V---------   9
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 8.0
+target           26 CGGSLINENWVVT-AAHCGVTTSDVVVAGEFDQGSSSEKIQKLKIAKVFKNSKYNSLTIN
+                  0 ||--------|---|------------------------||-------------------
+query             0 CG--------V--PA------------------------IQ-------------------
+
+target           85 NDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTTCV 122
+                 60 -----------------------|------------|  97
+query             7 -----------------------P------------V   9
+
+==================================================
+
+Alignment between FASTA 2CHA_2|Chains and PDB F
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 131.0
+target            0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGS
+                  0 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query             0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGS
+
+target           60 SSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTT
+                 60 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query            60 SSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTT
+
+target          120 CVTTGWGLTRY 131
+                120 ||||||||||| 131
+query           120 CVTTGWGLTRY 131
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 131.0
+target            0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGS
+                  0 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query             0 IVNGEEAVPGSWPWQVSLQDKTGFHFCGGSLINENWVVTAAHCGVTTSDVVVAGEFDQGS
+
+target           60 SSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTT
+                 60 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query            60 SSEKIQKLKIAKVFKNSKYNSLTINNDITLLKLSTAASFSQTVSAVCLPSASDDFAAGTT
+
+target          120 CVTTGWGLTRY 131
+                120 ||||||||||| 131
+query           120 CVTTGWGLTRY 131
+
+==================================================
+
+Alignment between FASTA 2CHA_2|Chains and PDB G
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 37.0
+target            0 IVNGEEAV--PGSWPWQVS--LQDKTGFHFCGG--SLI----NE-N----WVV-T----A
+                  0 ------|---|----------||------------||-----|--|----|---|----|
+query             0 ------A-NTP--------DRLQ----------QASL-PLLSN-TNCKKYW--GTKIKDA
+
+target           40 AH--C-GVTT-SD-VVVA----GEFDQGSSSEKIQK---LKIAKVF-KNSKYNSL---TI
+                 60 ----|-|----|--|-------|--|--|----------|----|--|--|-|-----|-
+query            31 --MICAG---AS-GV---SSCMG--D--S-------GGPL----V-CK--K-N--GAWT-
+
+target           84 NNDITLLKL----STAA--SFSQTVSAVCLPSA-SDDFAAGTTC--V----TTGWG-L--
+                120 -----|-------|-----|-|-|----|--|--|------|----|----|-----|--
+query            60 -----L---VGIVS---WGS-S-T----C--S-TS------T--PGVYARVT----ALVN
+
+target          128 ----TRY---- 131
+                180 ----|------ 191
+query            88 WVQQT--LAAN  97
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 37.0
+target            6 AV--PGSWPWQVS--LQDKTGFHFCGG--SLI----NE-N----WVV-T----AAH--C-
+                  0 |---|----------||------------||-----|--|----|---|----|----|-
+query             0 A-NTP--------DRLQ----------QASL-PLLSN-TNCKKYW--GTKIKDA--MICA
+
+target           43 GVTT-SD-VVVA----GEFDQGSSSEKIQK---LKIAKVF-KNSKYNSL---TINNDITL
+                 60 |----|--|-------|--|--|----------|----|--|--|-|-----|------|
+query            35 G---AS-GV---SSCMG--D--S-------GGPL----V-CK--K-N--GAWT------L
+
+target           90 LKL----STAA--SFSQTVSAVCLPSA-SDDFAAGTTC--V----TTG----WG----L
+                120 -------|-----|-|-|----|--|--|------|----|----|------|-----|
+query            61 ---VGIVS---WGS-S-T----C--S-TS------T--PGVYARVT--ALVNW-VQQTL
+
+target          128
+                179
+query            94
+
+==================================================
+
+Alignment between FASTA 2CHA_3|Chains and PDB A
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 8.0
+target            0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+                  0 -------------------|----|--------------|---------|-------|--
+query             0 -------------------C----G--------------V---------P-------A--
+
+target           60 LVGIVSWGSSTCSTST-PGVYARVTALVNWVQQTLAAN 97
+                 60 ---|-------------|-|------------------ 98
+query             5 ---I------------QP-V------------------  9
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 8.0
+target           19 CKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWTLVGIVSWGSSTCSTST-PG
+                  0 |----|--------------|---------|-------|-----|-------------|-
+query             0 C----G--------------V---------P-------A-----I------------QP-
+
+target           78 V 79
+                 60 | 61
+query             8 V  9
+
+==================================================
+
+Alignment between FASTA 2CHA_3|Chains and PDB B
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 37.0
+target            0 A--NT-----PDRL-----QQA-SLPLL-----------S--NT-NCKKYWG--TKIKDA
+                  0 ---|------|--------|---||--------------|--|--|----|---|----|
+query             0 -IVN-GEEAVP---GSWPWQ--VSL---QDKTGFHFCGGSLIN-EN----W-VVT----A
+
+target           31 MICA--GASGV--SSCM-----G--DS-GGPLVC----K--KNGAWTLVG-I--V---SW
+                 60 ---|--|---|--|--------|--|--|---------|--|-----|---|--|---|-
+query            40 ---AHCG---VTTS---DVVVAGEFD-QG-----SSSEKIQK-----L--KIAKVFKNS-
+
+target           67 G---SS-TC----------ST--S---TPGVY-ARVTA-L-------------VNWVQQT
+                120 ----|--|-----------||--|---|--|--|-|---|-------------|-----|
+query            77 -KYNS-LT-INNDITLLKLSTAASFSQT--V-SA-V--CLPSASDDFAAGTTCV-----T
+
+target           93 ----LAAN---  97
+                180 ----|------ 191
+query           123 TGWGL---TRY 131
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 37.0
+target            1 NT-----PDRL-----QQA-SLPLL-----------S--NT-NCKKYWG--TKIKDAMIC
+                  0 |------|--------|---||--------------|--|--|----|---|----|---
+query             2 N-GEEAVP---GSWPWQ--VSL---QDKTGFHFCGGSLIN-EN----W-VVT----A---
+
+target           34 A--GASGV--SSCM-----G--DS-GGPLVC----K--KNGAWTLVG-I--V---SWG--
+                 60 |--|---|--|--------|--|--|---------|--|-----|---|--|---|----
+query            40 AHCG---VTTS---DVVVAGEFD-QG-----SSSEKIQK-----L--KIAKVFKNS--KY
+
+target           68 -SS-TC----------ST--S---TPGVY-ARVTA-L-------------VN---WVQQ-
+                120 -|--|-----------||--|---|--|--|-|---|-------------|----|----
+query            79 NS-LT-INNDITLLKLSTAASFSQT--V-SA-V--CLPSASDDFAAGTTCV-TTGW---G
+
+target           92 -T  93
+                180 -| 182
+query           127 LT 129
+
+==================================================
+
+Alignment between FASTA 2CHA_3|Chains and PDB C
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 97.0
+target            0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+                  0 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query             0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+
+target           60 LVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN 97
+                 60 ||||||||||||||||||||||||||||||||||||| 97
+query            60 LVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN 97
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 97.0
+target            0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+                  0 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query             0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+
+target           60 LVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN 97
+                 60 ||||||||||||||||||||||||||||||||||||| 97
+query            60 LVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN 97
+
+==================================================
+
+Alignment between FASTA 2CHA_3|Chains and PDB E
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 8.0
+target            0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+                  0 -------------------|----|--------------|---------|-------|--
+query             0 -------------------C----G--------------V---------P-------A--
+
+target           60 LVGIVSWGSSTCSTST-PGVYARVTALVNWVQQTLAAN 97
+                 60 ---|-------------|-|------------------ 98
+query             5 ---I------------QP-V------------------  9
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 8.0
+target           19 CKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWTLVGIVSWGSSTCSTST-PG
+                  0 |----|--------------|---------|-------|-----|-------------|-
+query             0 C----G--------------V---------P-------A-----I------------QP-
+
+target           78 V 79
+                 60 | 61
+query             8 V  9
+
+==================================================
+
+Alignment between FASTA 2CHA_3|Chains and PDB F
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 37.0
+target            0 A--NT-----PDRL-----QQA-SLPLL-----------S--NT-NCKKYWG--TKIKDA
+                  0 ---|------|--------|---||--------------|--|--|----|---|----|
+query             0 -IVN-GEEAVP---GSWPWQ--VSL---QDKTGFHFCGGSLIN-EN----W-VVT----A
+
+target           31 MICA--GASGV--SSCM-----G--DS-GGPLVC----K--KNGAWTLVG-I--V---SW
+                 60 ---|--|---|--|--------|--|--|---------|--|-----|---|--|---|-
+query            40 ---AHCG---VTTS---DVVVAGEFD-QG-----SSSEKIQK-----L--KIAKVFKNS-
+
+target           67 G---SS-TC----------ST--S---TPGVY-ARVTA-L-------------VNWVQQT
+                120 ----|--|-----------||--|---|--|--|-|---|-------------|-----|
+query            77 -KYNS-LT-INNDITLLKLSTAASFSQT--V-SA-V--CLPSASDDFAAGTTCV-----T
+
+target           93 ----LAAN---  97
+                180 ----|------ 191
+query           123 TGWGL---TRY 131
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 37.0
+target            1 NT-----PDRL-----QQA-SLPLL-----------S--NT-NCKKYWG--TKIKDAMIC
+                  0 |------|--------|---||--------------|--|--|----|---|----|---
+query             2 N-GEEAVP---GSWPWQ--VSL---QDKTGFHFCGGSLIN-EN----W-VVT----A---
+
+target           34 A--GASGV--SSCM-----G--DS-GGPLVC----K--KNGAWTLVG-I--V---SWG--
+                 60 |--|---|--|--------|--|--|---------|--|-----|---|--|---|----
+query            40 AHCG---VTTS---DVVVAGEFD-QG-----SSSEKIQK-----L--KIAKVFKNS--KY
+
+target           68 -SS-TC----------ST--S---TPGVY-ARVTA-L-------------VN---WVQQ-
+                120 -|--|-----------||--|---|--|--|-|---|-------------|----|----
+query            79 NS-LT-INNDITLLKLSTAASFSQT--V-SA-V--CLPSASDDFAAGTTCV-TTGW---G
+
+target           92 -T  93
+                180 -| 182
+query           127 LT 129
+
+==================================================
+
+Alignment between FASTA 2CHA_3|Chains and PDB G
+------------------------------------------------
+
+GLOBAL ALIGNMENT (Needleman-Wunsch)
+Score: 97.0
+target            0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+                  0 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query             0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+
+target           60 LVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN 97
+                 60 ||||||||||||||||||||||||||||||||||||| 97
+query            60 LVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN 97
+
+--------------------------------------------------
+
+LOCAL ALIGNMENT (Smith-Waterman)
+Score: 97.0
+target            0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+                  0 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query             0 ANTPDRLQQASLPLLSNTNCKKYWGTKIKDAMICAGASGVSSCMGDSGGPLVCKKNGAWT
+
+target           60 LVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN 97
+                 60 ||||||||||||||||||||||||||||||||||||| 97
+query            60 LVGIVSWGSSTCSTSTPGVYARVTALVNWVQQTLAAN 97
+
+==================================================
+
+BLOSUM62 Scores:
+------------------------------------------------
+('2CHA_1|Chains', 'A'): 50.0
+('2CHA_1|Chains', 'B'): -23.0
+('2CHA_1|Chains', 'C'): -7.0
+('2CHA_1|Chains', 'E'): 50.0
+('2CHA_1|Chains', 'F'): -23.0
+('2CHA_1|Chains', 'G'): -7.0
+('2CHA_2|Chains', 'A'): -18.0
+('2CHA_2|Chains', 'B'): 687.0
+('2CHA_2|Chains', 'C'): -80.0
+('2CHA_2|Chains', 'E'): -18.0
+('2CHA_2|Chains', 'F'): 687.0
+('2CHA_2|Chains', 'G'): -80.0
+('2CHA_3|Chains', 'A'): -3.0
+('2CHA_3|Chains', 'B'): -80.0
+('2CHA_3|Chains', 'C'): 520.0
+('2CHA_3|Chains', 'E'): -3.0
+('2CHA_3|Chains', 'F'): -80.0
+('2CHA_3|Chains', 'G'): 520.0
+
+BLOSUM80 Scores:
+------------------------------------------------
+('2CHA_1|Chains', 'A'): 83.0
+('2CHA_1|Chains', 'B'): -47.0
+('2CHA_1|Chains', 'C'): -17.0
+('2CHA_1|Chains', 'E'): 83.0
+('2CHA_1|Chains', 'F'): -47.0
+('2CHA_1|Chains', 'G'): -17.0
+('2CHA_2|Chains', 'A'): -36.0
+('2CHA_2|Chains', 'B'): 1111.0
+('2CHA_2|Chains', 'C'): -189.0
+('2CHA_2|Chains', 'E'): -36.0
+('2CHA_2|Chains', 'F'): 1111.0
+('2CHA_2|Chains', 'G'): -189.0
+('2CHA_3|Chains', 'A'): -9.0
+('2CHA_3|Chains', 'B'): -189.0
+('2CHA_3|Chains', 'C'): 837.0
+('2CHA_3|Chains', 'E'): -9.0
+('2CHA_3|Chains', 'F'): -189.0
+('2CHA_3|Chains', 'G'): 837.0
+
+BLOSUM45 Scores:
+------------------------------------------------
+('2CHA_1|Chains', 'A'): 63.0
+('2CHA_1|Chains', 'B'): -26.0
+('2CHA_1|Chains', 'C'): -6.0
+('2CHA_1|Chains', 'E'): 63.0
+('2CHA_1|Chains', 'F'): -26.0
+('2CHA_1|Chains', 'G'): -6.0
+('2CHA_2|Chains', 'A'): -22.0
+('2CHA_2|Chains', 'B'): 807.0
+('2CHA_2|Chains', 'C'): -62.0
+('2CHA_2|Chains', 'E'): -22.0
+('2CHA_2|Chains', 'F'): 807.0
+('2CHA_2|Chains', 'G'): -62.0
+('2CHA_3|Chains', 'A'): -3.0
+('2CHA_3|Chains', 'B'): -62.0
+('2CHA_3|Chains', 'C'): 613.0
+('2CHA_3|Chains', 'E'): -3.0
+('2CHA_3|Chains', 'F'): -62.0
+('2CHA_3|Chains', 'G'): 613.0
+
+Detected Chain Breaks:
+------------------------------------------------
+{}
+
+Accessible Surface Area (ASA) Values:
+------------------------------------------------
+-------------------------
+Chain     ASA Value      
+-------------------------
+A         577.34         
+B         5386.74        
+C         3605.17        
+E         577.78         
+F         5380.68        
+G         3610.26        
+-------------------------
+
+Calculating Molecular Weights of the Chains
+------------------------------------------------
+Chain A: Molecular Weight = 1027.20 Da
+Chain B: Molecular Weight = 16265.59 Da
+Chain C: Molecular Weight = 11795.97 Da
+Chain E: Molecular Weight = 1027.20 Da
+Chain F: Molecular Weight = 16265.59 Da
+Chain G: Molecular Weight = 11795.97 Da
+
+Calculating Chain Lengths
+
+------------------------------------------------
+Chain ID: A | Chain Length: 9
+Chain ID: B | Chain Length: 131
+Chain ID: C | Chain Length: 97
+Chain ID: E | Chain Length: 9
+Chain ID: F | Chain Length: 131
+Chain ID: G | Chain Length: 97
+
+Run Successful
+
+------------------------------------------------
