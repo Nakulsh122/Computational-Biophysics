@@ -1,0 +1,1 @@
+To run the program in the python file first input the path to the naccess program wherever you have installed it and then just simply run thee python file 
